@@ -1607,7 +1607,7 @@ function initSiteObject(layerName) {
 	    // The URL above is outdated. Now resides here:
 	    var layerJson = "/localsite/info/data/ga-layers.json";
 
-	    if(location.host.indexOf('georgia') >= 0) {
+	    if(location.host.indexOf("georgia") >= 0) {
 	    	// For PPE, since localhost folder does not reside on same server
 	    	layerJson = "https://model.earth/localsite/info/data/ga-layers.json";
 	    	console.log("Set layerJson: " + layerJson);
@@ -1833,6 +1833,24 @@ function hashChanged() {
 	//alert("hash.state " + hash.state);
 	console.log("hashChanged from prior geo: " + priorHash.geo + " to " + hash.geo);
 	
+	// For PPE embed, also in map.js. Will likely change
+	if (!hash.show) {
+		// For embed link
+		hash.show = param.show;
+		hiddenhash.show = param.show;
+	}
+	if (!hash.state) {
+		// For embed link
+		hash.state = param.state;
+		hiddenhash.state = param.state;
+	}
+
+	  // Temp for PPE
+	  if (!hash.state && location.host.indexOf("georgia") >= 0) {
+	    hash.state = "GA";
+	    hiddenhash.state = "GA";
+	  }
+  
 	populateFieldsFromHash();
 	productList("01","99","All Harmonized System Categories"); // Sets title for new HS hash.
 
